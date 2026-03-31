@@ -25,6 +25,9 @@ telegramBotToken='YOUR_BOT_TOKEN'
 # Telegram Chat ID
 telegramChatID='YOUR_CHAT_ID'
 
+# Server Name
+serverName='serverName'
+
 function talkToBot() {
 	message=$1
 	curl -s -X POST https://api.telegram.org/bot${telegramBotToken}/sendMessage -d text="${message}" -d chat_id=${telegramChatID} > /dev/null 2>&1
@@ -61,10 +64,10 @@ done
 if [[ ! -z ${action} ]]; then
 	case "${action}" in
 		start)
-			talkToBot "Fail2ban has been started"
+			talkToBot "[${serverName}] Fail2ban has been started"
 		;;
 		stop)
-			talkToBot "Fail2ban has been stopped"
+			talkToBot "[${serverName}] Fail2ban has been stopped"
 		;;
 		*)
 			echo "Incorrect option"
@@ -72,10 +75,10 @@ if [[ ! -z ${action} ]]; then
 		;;
 	esac
 elif [[ ${ban} == "y" ]]; then
-	talkToBot "[${jail_name}] The IP: ${ip_add_ban} has been banned"
+	talkToBot "[${serverName}] [${jail_name}] The IP: ${ip_add_ban} has been banned"
 	exit 0;
 elif [[ ${unban} == "y" ]]; then
-	talkToBot "[${jail_name}] The IP: ${ip_add_unban} has been unbanned"
+	talkToBot "[${serverName}] [${jail_name}] The IP: ${ip_add_unban} has been unbanned"
 	exit 0;
 else
 	info
